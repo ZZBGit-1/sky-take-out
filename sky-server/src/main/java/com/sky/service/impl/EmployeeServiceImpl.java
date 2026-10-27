@@ -77,13 +77,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //设置密码 md5加密
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
-        //设置创建日期和修改日期
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
 
-        //设置当前记录创建人id和修改人id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
 
         //调用持久层方法
         employeeMapper.insert(employee);
@@ -134,9 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //把前端传来的对象属性拷贝到实体类对象
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
-        //设置修改日期和修改人id
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+
         //调用持久层方法
         employeeMapper.update(employee);
 
