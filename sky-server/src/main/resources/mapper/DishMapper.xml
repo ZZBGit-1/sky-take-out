@@ -44,4 +44,9 @@
     <select id="getById" resultType="com.sky.entity.Dish">
         select * from dish where id = #{id}
     </select>
+    <!--根据分类id查询菜品列表-->
+    <select id="getDishList" resultType="com.sky.vo.DishVO">
+        select d.*, c.name as categoryName from dish d left join category c on d.category_id = c.id
+        where d.category_id = #{categoryId}
+    </select>
 </mapper>

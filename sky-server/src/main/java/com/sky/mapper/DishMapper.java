@@ -56,5 +56,10 @@ public interface DishMapper {
     @AutoFill(value = OperationType.UPDATE)
     void updateById(Dish dish);
 
-
+    /**
+     * 根据分类id查询菜品列表
+     * @param categoryId
+     * @return
+     */
+    List<DishVO> getDishList(Long categoryId);
 }

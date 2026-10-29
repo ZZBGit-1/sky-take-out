@@ -91,4 +91,14 @@ public class DishController {
         return Result.success();
     }
 
+    /**
+     * 根据分类id查询菜品
+     * @return
+     *
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<DishVO>> getDishList(@RequestParam Long categoryId){
+        return Result.success(dishService.getDishList(categoryId));
+    }
 }
