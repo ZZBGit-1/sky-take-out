@@ -14,6 +14,10 @@ sky:
 
   alioss:
     endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: ${ALIYUN_OSS_AK:}
-    access-key-secret: ${ALIYUN_OSS_SK:}
+    access-key-id: ${OSS_ACCESS_KEY_ID:}
+    access-key-secret: ${OSS_ACCESS_KEY_SECRET:}
     bucket-name: skkyyyy
+
+  wechat:
+    appid: wx9938c393f07e09aa
+    secret: a659b4cec55648a4066e1744d5b89820

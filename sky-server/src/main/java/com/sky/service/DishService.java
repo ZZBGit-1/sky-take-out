@@ -52,7 +52,7 @@ public interface DishService {
 
     /**
      * 根据分类id查询菜品
-     * @param id
+     * @param categoryId
      * @return
      */
     List<DishVO> getDishList(Long categoryId);

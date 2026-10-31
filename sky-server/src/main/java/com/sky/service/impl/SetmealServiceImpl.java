@@ -13,11 +13,13 @@ import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -87,6 +89,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param setmealDTO
      */
     @Override
+    @Transactional
     public void updateSetmeal(SetmealDTO setmealDTO) {
 
         //修改套餐的基础信息
@@ -97,7 +100,15 @@ public class SetmealServiceImpl implements SetmealService {
         //先删除套餐菜品信息
         setmealDishMapper.deleteSetmealDishes(setmealDTO.getId());
         //再新增套餐菜品信息
-        setmealDishMapper.insertSetmealDishes(setmealDTO.getSetmealDishes());
+        //先获取当前套餐菜品列表
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        //判断当前套餐菜品列表是否为空  如果为空就不进行更新操作
+        if(setmealDishes != null && setmealDishes.size() > 0){
+            setmealDishes.forEach(setmealDish -> {
+                setmealDish.setSetmealId(setmealDTO.getId());
+            });
+            setmealDishMapper.insertSetmealDishes(setmealDishes);
+        }
 
     }
 
@@ -138,6 +149,26 @@ public class SetmealServiceImpl implements SetmealService {
         setmeal.setStatus(status);
         setmeal.setId(id);
         setmealMapper.update(setmeal);
+    }
+
+    /**
+     * 根据分类id查询套餐列表
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Setmeal> getByCategoryId(Long categoryId) {
+        return setmealMapper.getByCategoryId(categoryId);
+    }
+
+    /**
+     * 根据id查询套餐菜品列表
+     * @param id
+     * @return
+     */
+    @Override
+    public List<DishItemVO> getSetmealDish(Long id) {
+        return setmealMapper.getSetmealDish(id);
     }
 
 

@@ -79,4 +79,17 @@
     <select id="countByStatus" resultType="java.lang.Integer">
         select count(*) from setmeal where status = '1'
     </select>
+     <!--根据分类id查询套餐信息-->
+    <select id="getByCategoryId" resultType="com.sky.entity.Setmeal">
+        select id,category_id, name, price, description, image, status,
+               update_time as updateTime,create_time as createTime,update_user as updateUser,
+               create_user as createUser
+        from setmeal
+        where category_id = #{categoryId}
+    </select>
+    <!--根据套餐id查询套餐菜品信息-->
+    <select id="getSetmealDish" resultType="com.sky.vo.DishItemVO">
+        select d.name,d.image,d.description,sd.copies from dish d left join setmeal_dish sd on d.id = sd.dish_id
+        where sd.setmeal_id = #{setmealId}
+    </select>
 </mapper>
